@@ -1,0 +1,137 @@
+{% extends "CSRP/base.html" %}
+{% load static %} 
+{% block title %} Requistion Form {% endblock title %} 
+{% block content %} 
+<body>
+<div class="container">
+    <!-- CHANGE THE URL HERE -->
+      <div class="logo" style="text-align: center;">
+        <img src="{% static 'img/NEDlogo.jpg' %}" width="300" height="auto"/>
+      </div>
+      <br>
+      <h3 style="text-align: center;">Civil Requistion Form</h3>
+      <br>
+      <form method="POST" action="{% url 'requistionform' %}">
+        <!-- Hidden input field for user ID -->
+        <input type="hidden" name="user_id" value="{{ request.user.id }}">
+        <input type="hidden" name="department" value="{{ request.user.department }}">
+        <!-- Other form fields -->
+      {% csrf_token %}
+      {% if form.errors %}
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+              {% for key, value in form.errors.items %}
+              <strong>{{ value }}</strong>
+              {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %}
+    <br>
+    <div class="form-row">
+      <div class="col-md-3 mb-2" style="padding-right: 10px;">
+        <label for="validationServer04">Requisition Type</label>
+        <select class="custom-select my-1 mr-sm-2" name="requistion_type" id="inlineFormCustomSelectPref">
+          <option selected>Choose...</option>
+          <optgroup label="Civil Requisitions:">
+            <option value="Carpentry Requisition">Carpentry Requisition</option>
+            <option value="Fumigation Requisition">Fumigation Requisition</option>
+            <option value="Horticulture Requisition">Horticulture Requisition</option>
+            <option value="Masonry Requisition">Masonry Requisition</option>
+            <option value="Painting Requisition">Painting Requisition</option>
+            <option value="Plumbing Requisition">Plumbing Requisition</option>
+            <option value="Sanitation Requisition">Sanitation Requisition</option>
+            <option value="Welding Requisition">Welding Requisition</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="col-md-4 mb-3" style="padding-right: 10px; top: 4px;">
+        <label for="exampleInputEmail1">Requisition Subject</label>
+        <input type="text" class="form-control" name="requistionsubject" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter requisition subject">
+      </div>
+      <div class="col-md-2 mb-3" style="padding-right: 10px;">
+        <label for="validationServer04">Department</label>
+        <select class="custom-select my-1 mr-sm-2" name="department" id="inlineFormCustomSelectPref">
+          <option selected>Choose...</option>
+            <optgroup label="Teaching Departments:">
+            <option value="CED">CED</option>
+            <option value="Department of Environmental Engineering">END</option>
+            <option value="Department of Architecture & Planning">ARD</option>
+            <option value="Department of Petroleum Engineering">PED</option>
+            <option value="Department of Urban & Infrastructure Engineering">UED</option>
+            <option value="Department of Earthquake Engineering ">EQD</option>
+            <option value="Department of Electrical Engineering">EED</option>
+            <option value="Department of Computer & Information Systems Engineering">CIS</option>
+            <option value="Department of Electronic Engineering">ELD</option>
+            <option value="Department of Mechanical Engineering">MED</option>
+            <option value="Department of Textile Engineering">TXD</option>
+            <option value="Department of Industrial & Manufacturing Engineering">IMD</option>
+            <option value="Department of Automotive & Marine Engineering">ATD</option>
+            <option value="Department of Computer Science & Software Engineering">CSE</option>
+            <option value="Department of Mathematics">DMT</option>
+            <option value="Department of Physics">DPH</option>
+            <option value="Department of Chemistry">DCY</option>
+            <option value="Department of Humanities">HSD</option>
+            <option value="Department of Material Engineering">MMD</option>
+            <option value="Department of Metallurgical Engineering">MYD</option>
+            <option value="Department of Chemical Engineering">DEC</option>
+            <option value="Department of Polymer & Petrochemical Engineering">PPD</option>
+            <option value="Department of Biomedical Engineering">BMD</option>
+            <option value="Department of Food Engineering">FED</option>
+            <option value="Department of Economics & Management Sciences">EMD</option>
+            <optgroup label="Non-Teaching Departments:">
+            <option value="Dean(CPL)">Dean(CPL)</option>
+            <option value="Dean(MME)">Dean(MME)</option>
+            <option value="Dean(ECE)">Dean(ECE)</option>
+            <option value="Dean(ISH)">Dean(ISH)</option>
+            <option value="Dean(CPE)">Dean(CPE)</option>
+            <option value="Dean(AMS)">Dean(AMS)</option>
+            <option value="Vice Chancellor’s Secretariat">VCS</option>
+            <option value="Quality Management Cell/Quality Enhancement Cell">QMC/QEC</option>
+            <option value="Registrar Office">RO</option>
+            <option value="Directorate of Finance">DOF</option>
+            <option value="Audit Department">AUD</option>
+            <option value="Directorate of Works & Services">DW&S</option>
+            <option value="Directorate of Planning & Development">DPD</option>
+            <option value="Engr. Abul Kalam Library">AKL</option>
+            <option value="Examinations Department">EXD</option>
+            <option value="Medical Department">MLD</option>
+            <option value="Department of Student Affairs">DSA</option>
+            <option value="Directorate of Industrial Liaison">DIL</option>
+            <option value="Information Technology Department">ITD</option>
+            <option value="NED Academy">NED Academy</option>
+            <option value="Centre for Continuing Engineering Education">CCEE</option>
+            <option value="Centre for Multidisciplinary Postgraduate Courses">CMPC</option>
+            <option value="University Advancement & Financial Assistance">UAFA</option>
+            <option value="Office of Research Innovation and Commercialization">ORIC</option>
+            <option value="Center of Innovation, Entrepreneurship, Technology Incubation and Commercialization (CINETIC)">CINETIC</option>
+            <option value="Procurement Cell">PC</option>
+            <option value="NED-DICE-Energy Innovation Centre">NED-DICE-EIC</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="col-md-2 mb-3" style="top: 4px;">
+        <label for="inputZip">No of Articles</label>
+        <input type="number" class="form-control" name="noofarticles" id="inputZip" placeholder="Enter value">
+      </div>
+      <div class="col-md-2 mb-3" style="top: 4px;">
+        <label for="inputZip">Designation</label>
+        <input type="text" class="form-control" name="designation" id="inputZip" placeholder="Enter Your Designation">
+      </div>
+      <div class="col-md-2 mb-3" style="top: 4px;">
+        <label for="inputZip" style="margin-left: 10px">Extension Number</label>
+        <input type="number" class="form-control" name="extensionnumber" id="inputZip" placeholder="Enter Your Extension Number" style="margin-left: 10px">
+      </div>
+    </div>
+      <div class="form-group">
+        <label for="message">Requistion Description</label>
+        <textarea class="form-control" name="requistiondescription" id="message" rows="5" placeholder="Enter Your Description" required></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit" style="background-color: #02632c; border-color: #02632c;">Submit Requistion</button>      
+    </form>
+  </br>
+</body>
+{% endblock content %}
+

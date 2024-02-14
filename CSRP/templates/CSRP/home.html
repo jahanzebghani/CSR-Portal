@@ -1,0 +1,31 @@
+{% extends "CSRP/base.html" %}
+{% load static %} 
+{% block content %}
+<body style="width: 100%; background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4EHRkZWGcF-t7P93V0GSFEj9Tkn2Ky3vDBcMS4rB4Jvb0_fJ7Q5U1qLRBAoAQyS7lPs0&usqp=CAU); background-position: center; background-size: cover; height: 100vh;">
+  <nav style="height: 6rem; width: 100vw; background-color: #fff; box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2); display: flex; position: fixed; z-index: 10;">
+    <div class="logo" style="cursor: pointer; padding:1vh 6vw; text-align: center;">
+      <img src="{% static 'img/NEDlogo.jpg' %}" width="250" height="auto"/>
+	</div>
+			<ul class="nav-links" style="margin-top: 0; margin-bottom: 0em; padding: 15px 140px; display: flex; list-style: none; width: vw; justify-content: space-evenly; align-items: center; text-transform: uppercase; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: bolder;">
+				<li style="position: relative;"><a href="/home" style="color: black; text-decoration: none; margin: 0 0.7vw;"><i class="fas fa-home" style="color: black;"></i> HOME</a></li>
+				<li style="position: relative;"><a href="/about" style="color: black; text-decoration: none; margin: 0 0.7vw;"><i class="fas fa-info-circle" style="color: black;"></i> ABOUT</a></li>
+				<li style="position: relative;"><a href="/contactus" style="color: black; text-decoration: none; margin: 0 0.7vw;"><i class="fas fa-envelope mx-1" style="color: black;"></i>CONTACT US</a></li>
+			</ul>
+      <div class="menu">
+        <ul>
+         {% if user.is_authenticated %}
+         <li>
+            <span>Welcome {{ user.username }}</span>
+            <a href="/logout">Logout</a>
+         </li>
+         {% endif %}
+          <div class="d-flex align-items-center" style="font-family: 'Inter Tight', sans-serif; float: left; color: white; font-size: 13px; margin: 25px 0; font-weight: bolder;">
+          <li><a href="/portal" class="btn btn-success" style="background: #02632c; margin-top: 6px">LODGE REQUISTION</a></li>
+        </div>
+      </nav>
+</body>
+{% endblock %}
+
+
+  
+    

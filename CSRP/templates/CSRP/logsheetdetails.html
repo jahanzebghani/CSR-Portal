@@ -1,0 +1,102 @@
+{% extends "CSRP/base.html" %}
+{% load static %} 
+{% block title %} Log Sheet Details {% endblock title%} 
+{% block content %} 
+<body>
+    <div class="container">
+        <!-- CHANGE THE URL HERE -->
+          <div class="logo" style="text-align: center;">
+            <img src="{% static 'img/NEDlogo.jpg' %}" width="300" height="auto"/>
+          </div>
+          <br>
+          <h3 style="text-align: center;">Log Sheet Details</h3>
+        </br>
+        <style>
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            border: 5px solid black;
+          }
+          
+          th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            width: 100px;
+          }
+          
+          th {
+            background-color: #f2f2f2;
+            width: inherit;
+          }
+          
+          tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+          </style> 
+          <table border="1">
+            <tr style="width: 50px;">
+              <th>CSR NO</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Requisition Type</th>
+              <th>Customer Coordinator</th>
+              <th>Department</th>
+              <th>Assign To</th>
+              <th>Brief Service Description</th>
+              <th>Status</th>
+            </tr>
+            <!-- Add your table rows and data here -->
+            {% for requistion_form in requistion_forms %}
+            <tr>
+              <td>C-000{{ requistion_form.id }}</td>
+              <td>{{ requistion_form.date }}</td>
+              <td>{{ requistion_form.time }}</td>
+              <td>{{ requistion_form.requistion_type }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ requistion_form.department }}</td>
+              <td>{{ requistion_form.assignto }}</td>
+              <td>{{ requistion_form.requistionsubject }}</td>
+              <td>{{ requistion_form.status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+            <br> 
+          <div class="d-flex align-items-center" style="font-family: 'Inter Tight', sans-serif; color: white; font-size: 13px; font-weight: bolder;">
+            <button onclick="printLogEntries()" class="btn btn-success" style="background: #02632c;">PRINT</button>
+        </div>
+          </div>
+        </br>
+        <script>
+          // Function to print the entire content on one page
+          function printLogEntries() {
+              const printWindow = window.open("", "_blank");
+              const logTable = document.querySelector("table");
+              const logoImage = "{% static 'img/NEDlogo.jpg' %}";
+      
+              printWindow.document.open();
+              printWindow.document.write("<html><head><title>Log Sheet</title></head><body>");
+              
+              // Centered container for the content
+              printWindow.document.write('<div style="text-align: center;">');
+              
+              // Include the logo
+              printWindow.document.write('<img src="' + logoImage + '" width="300" height="auto" />');
+              
+              // Centered title
+              printWindow.document.write('<h1 style="margin-top: 20px;">Log Sheet Details</h1>');
+              
+              // Include the table
+              printWindow.document.write(logTable.outerHTML);
+              
+              printWindow.document.write("</div>"); // Close the centered container
+              printWindow.document.write("</body></html>");
+              printWindow.document.close();
+              printWindow.print();
+              printWindow.close();
+          }
+      </script>
+               
+</body>
+{% endblock %}

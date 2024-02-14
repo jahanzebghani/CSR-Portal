@@ -1,0 +1,112 @@
+{% extends "CSRP/base.html" %}
+{% load static %} 
+{% block title %} Submitted Feedbacks Details {% endblock title%} 
+{% block content %} 
+<body>
+<div class="container">
+    <!-- CHANGE THE URL HERE -->
+      <div class="logo" style="text-align: center;">
+        <img src="{% static 'img/NEDlogo.jpg' %}" width="300" height="auto"/>
+      </div>
+      <br>
+      <h3 style="text-align: center;">Submitted Feedbacks Details</h3>
+    </br>
+    <br>
+      <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+    
+        th, td {
+          padding: 8px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+    
+        th {
+          background-color: #f2f2f2;
+        }
+    
+      /* Set the width of each table column */
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 50px; /* Set the width of the ID column */
+      }
+    
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 300px; /* Set the width of the Department column */
+      }
+    
+      th:nth-child(3),
+      td:nth-child(3) {
+        width: 300px; /* Set the width of the Department column */
+      }
+      </style>
+    </head>
+    <body>
+          </table>
+              </form>
+              <style>
+                .requistion-box {
+                  border: 1px solid #ccc;
+                  padding: 10px;
+                  margin-bottom: 10px;
+                }
+              </style>
+            </head>
+            <body>
+      <ul>
+        <div class="requistion-box" style="background: #fff;">
+        <strong>FEEDBACK:</strong><br><br>
+        {% for feedbackform in feedbackforms %}
+            <strong>CSR NO:</strong> {{ feedbackform.csrno }} </br>
+            <strong>Name:</strong> {{ feedbackform.name }}<br>
+            <strong>Phone Number:</strong> {{ feedbackform.phonenumber }}<br><br>
+            <strong>Message:</strong> {{ feedbackform.message }}<br>
+        {% endfor %}
+      </div>
+        <div class="col-md-6">
+            <a href="/dashboard" class="btn btn-warning" style="margin-left: 1025px; color: #fff; font-family: 'Inter Tight', sans-serif; margin-top: 3px;">BACK</a>
+        </div>
+      </div>
+      </div>
+
+
+
+
+
+
+
+
+
+      </main>
+</section>
+      <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+      <script src="script.js"></script>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+    
+    * {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --grey: #F1F0F6;
+      --dark-grey: #8D8D8D;
+      --light: #fff;
+      --dark: #000;
+      --green: #81D43A;
+      --light-green: #E3FFCB;
+      --blue: #1775F1;
+      --light-blue: #D0E4FF;
+      --dark-blue: #0C5FCD;
+      --red: #FC3B56;
+    }
+      </style>
+</body>
+{% endblock %}

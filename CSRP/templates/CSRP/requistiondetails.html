@@ -1,0 +1,131 @@
+{% extends "CSRP/base.html" %}
+{% load static %} 
+{% block title %} Submitted Requistion Details {% endblock title%} 
+{% block content %} 
+<body>
+<div class="container">
+    <!-- CHANGE THE URL HERE -->
+      <div class="logo" style="text-align: center;">
+        <img src="{% static 'img/NEDlogo.jpg' %}" width="300" height="auto"/>
+      </div>
+      <br>
+      <h3 style="text-align: center;">Submitted Requistion Details</h3>
+    </br>
+      <br>
+      <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+    
+        th, td {
+          padding: 8px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+    
+        th {
+          background-color: #f2f2f2;
+        }
+    
+      /* Set the width of each table column */
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 50px; /* Set the width of the ID column */
+      }
+    
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 300px; /* Set the width of the Department column */
+      }
+    
+      th:nth-child(3),
+      td:nth-child(3) {
+        width: 300px; /* Set the width of the Department column */
+      }
+      </style>
+    </head>
+    <body>
+          </table>
+              </form>
+              <style>
+                .requistion-box {
+                  border: 1px solid #ccc;
+                  padding: 10px;
+                  margin-bottom: 10px;
+                }
+              </style>
+            </head>
+            <body>
+      <ul>
+        {% for requistion_form in requistion_forms %}
+          <div class="requistion-box" style="background: #fff;">
+  <!---          <strong>ID:</strong> {{ requistion_form.id }}<br>      --> 
+        <strong>USER DETAILS:</strong><br><br>
+            <strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</br>
+            <strong>Email:</strong> {{ user.email }}<br>
+            <strong>Phone Number:</strong> {{ userdetails.phone_number }}<br>
+            <strong>Designation:</strong> {{ requistion_form.designation }}<br>
+            <strong>Extension Number:</strong> {{ requistion_form.extensionnumber }}<br><br>
+    <!--
+            <strong>Telephone Number:</strong> {{ userdetails.telephone_number }}<br><br>
+            <strong>Cnic:</strong> {{ userdetails.cnic }}<br>
+            <strong>Gender:</strong> {{ userdetails.gender }}<br>
+            <strong>City:</strong> {{ userdetails.city }}<br><br>
+      -->
+            <strong>SUBMITTED REQUISTION DETAILS:</strong><br><br>
+            {% if "Civil" in requistion_form.department %}
+          <strong>CSR NO:</strong> C-000{{ requistion_form.id }}<br>
+          {% else %}
+          <strong>CSR NO:</strong> E-000{{ requistion_form.id }}<br>
+          {% endif %}
+            <strong>Requistion Type:</strong> {{ requistion_form.requistion_type }}<br>
+            <strong>Department:</strong> {{ requistion_form.department }}<br> 
+            <strong>Subject:</strong> {{ requistion_form.requistionsubject }}<br>
+            <strong>No of Articles:</strong> {{ requistion_form.noofarticles }}<br>
+            <strong>Status:</strong> {{ requistion_form.status }}<br> 
+            <strong>Assign To:</strong> {{ requistion_form.assignto }}<br> 
+            <br>
+            <strong>Requistion Description:</strong> {{ requistion_form.requistiondescription }}</br>
+          <br>
+          <!---
+          <strong>Requistion Reply:</strong> {{ requistion_form.comment}}</br>
+          -->
+      </div>
+      <div class="text-center">
+      <a href="/dashboard" class="btn btn-warning" style="color: #fff; font-family: 'Inter Tight', sans-serif; margin-left: 1040px; margin-top: 3px;">BACK</a>
+      </div>
+      </div>
+      </div>
+      </main>
+</section>
+{% endfor %}
+      <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+      <script src="script.js"></script>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+    
+    * {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --grey: #F1F0F6;
+      --dark-grey: #8D8D8D;
+      --light: #fff;
+      --dark: #000;
+      --green: #81D43A;
+      --light-green: #E3FFCB;
+      --blue: #1775F1;
+      --light-blue: #D0E4FF;
+      --dark-blue: #0C5FCD;
+      --red: #FC3B56;
+    }
+      </style>
+    </body>
+    {% endblock %}
+
+    

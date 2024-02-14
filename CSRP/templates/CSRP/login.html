@@ -1,0 +1,79 @@
+{% extends "CSRP/base.html" %} 
+{% load static %} 
+{% block title %} Login Page {% endblock title%} 
+{% block content %} 
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<body class="vh-100" style="width: 100%; background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url(https://www.neduet.edu.pk/sites/default/files/technologypark/nedpic.jpg); background-position: center; background-size: cover; height: 100vh;">
+  <nav style="height: 6rem; width: 100vw; background-color: #fff; box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2); display: flex; position: fixed; z-index: 10;">
+      <div class="logo" style="cursor: pointer; padding:1vh 6vw; text-align: center;">
+        <img src="{% static 'img/NEDlogo.jpg' %}" width="250" height="auto"/>
+      </div>
+              <ul class="nav-links" style="margin-top: 0; margin-bottom: 0em; padding: 15px 140px; display: flex; list-style: none; width: vw; justify-content: space-evenly; align-items: center; text-transform: uppercase; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: bolder;">
+                  <li style="position: relative;"><a href="/home" style="color: black; text-decoration: none; margin: 0 0.7vw;"><i class="fas fa-home" style="color: black;"></i> HOME</a></li>
+                  <li style="position: relative;"><a href="/about" style="color: black; text-decoration: none; margin: 0 0.7vw;"><i class="fas fa-info-circle" style="color: black;"></i> ABOUT</a></li>
+                  <li style="position: relative;"><a href="/contactus" style="color: black; text-decoration: none; margin: 0 0.7vw;"><i class="fas fa-envelope mx-1" style="color: black;"></i>CONTACT US</a></li>
+              </ul>
+          </nav>
+  <div class="container py-5 h-100" style="padding-top: 2rem!important;">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-4"> <!-- Adjusted column width -->
+        <div class="card shadow-2-strong" style="border-radius: 1rem; background-color: rgba(255, 255, 255, 0.1); box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px); border-radius: 10px; top: 30px;">
+          <div class="card-body p-4 text-center">
+            <h3 class="mb-4" style="color: #fff;">Login</h3> 
+            {% if form.errors %} 
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <div id="form_errors"> {% for key, value in form.errors.items %} <strong>{{ value }}</strong> {% endfor %} </div> {% endif %} <form method="POST"> {% csrf_token %} <div class="form-outline mb-4">
+                <div class="form-outline mb-4" style="background-color: transparent; color: white;">
+                  <div class="input-container" style="position: relative;">
+                    <input type="text" name="username" placeholder="Username" class="form-control" maxlength="150" required="" id="id_username" style="background-color: transparent; color: white; padding-left: 32px;">
+                    <span class="fa fa-user" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: white;"></span>
+                  </div>                  
+                </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <div class="input-group">
+                    <div class="input-container" style="position: relative;">
+                      <input type="password" name="password" placeholder="Password" class="form-control" data-toggle="password" id="password" maxlength="50" required="" style="background-color: transparent; color: white; padding-left: 32px;">
+                      <span class="fa fa-lock" style="position: absolute; top: 50%; transform: translateY(-50%); left: 10px; color: #fff; pointer-events: none;"></span>
+                    </div>                    
+                    <div class="input-group-append" style="cursor: pointer;">
+                  </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-around align-items-center mb-4">
+                  <!-- Checkbox -->
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked style="margin-top: 0.4rem;"/>
+                    <label class="form-check-label" for="form1Example3" style="color: #fff;"> Remember me </label>
+                  </div>
+                  <a href="#" style="color: #fff;">Forgot password?</a>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" style="background-color: #02632c; border-color: #02632c;" type="submit">Login</button>
+                <br>
+                <p style="color: #fff;">Don't have an account? <a href="/register" class="link-info" style="color: #fff;">Register here</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      .form-control{
+        color: transparent;
+        background-color: transparent;
+    }
+    .form-control::placeholder {
+        color: white; /* Change this to the desired color */
+    }
+    .btn-outline-secondary {
+        color: #ffffff;
+        border-color: #ffffff;
+    }
+    .input-group{
+      width: 300px;
+    }
+    </style>
+  </body>
+  {% endblock content %}
+ 
+
+  

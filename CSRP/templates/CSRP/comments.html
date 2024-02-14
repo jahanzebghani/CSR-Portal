@@ -1,0 +1,112 @@
+{% extends "CSRP/base.html" %}
+{% load static %} 
+{% block title %} Comments {% endblock title%} 
+{% block content %} 
+<body>
+<div class="container">
+    <!-- CHANGE THE URL HERE -->
+      <div class="logo" style="text-align: center;">
+        <img src="{% static 'img/NEDlogo.jpg' %}" width="300" height="auto"/>
+      </div>
+      <br>
+      <h3 style="text-align: center;">Comments Section</h3>
+      <form method="POST" action="{% url 'comments' id  %}">
+      {% csrf_token %}
+      {% if form.errors %}
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+              {% for key, value in form.errors.items %}
+              <strong>{{ value }}</strong>
+              {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %}
+        <div class="container my-5 py-5" style="background-color: #eee;">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10 col-xl-12">
+              <div class="card">
+                <div class="card-body">
+                  <!---
+                  <div class="d-flex flex-start align-items-center">
+                    <img class="rounded-circle shadow-1-strong me-3">
+                     <img src="{% static 'img/NEDdashboardlog.jpg' %}" width="" height="80"/>
+                    <div style="margin-left: 12px; color: #000000!important;">
+                      <h5>{{ user.first_name }} {{ user.last_name }}</h5>
+                    </div>
+                  </div>
+                  <br>
+                  -->
+                  {% for cmt in comments %}
+                  <div class="d-flex align-items-center">
+                    <div class="logoimage d-flex align-items-center">
+                        <img class="rounded-circle shadow-1-strong me-3" style="margin-left: 20px;">
+                        <img src="{% static 'img/NEDdashboardlog.jpg' %}" width="60" height="60">
+                    </div>
+                    <div class="ml-3">
+                        <h6 class="mb-1">{{ cmt.commentposter }}</h6>
+                        <p class="text-muted small mb-0">{{ cmt.commentsubmiton}}</p>
+                    </div>
+                </div>
+                    <p class="mt-1 mb-4 pb-2" style="margin-left: 95px;">{{ cmt.comment}}</p>
+                  {% endfor %}
+                    <div id="actualCommentsContainer" style="margin-left: 65px"></div>
+                </div>
+                <div class="card-footer py-3 border-0" style="background-color: #fff">
+                  <div class="d-flex flex-start w-100" style="margin-left: -15px">
+                    <img class="rounded-circle shadow-1-strong me-3" style="margin-left: 4px;">
+                    <img src="{% static 'img/NEDdashboardlog.jpg' %}" width="60" height="60"/>
+                    <div class="form-outline w-100">
+                      <input type="hidden" name="requistionid" value="{{ id }}">
+                      <textarea class="form-control" id="commentInput" rows="4" name="comments"
+                        style="background: #fff; margin-left: 8px;"></textarea>
+                    </div>
+                  </div>
+                  <div class="float-end mt-2 pt-1">
+                    <button type="submit" id="postCommentBtn" class="btn btn-success" style="margin-left: 57px;">Post comment</button>
+                    <button type="button" class="btn btn-danger">Cancel</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-warning" style="margin-left: 706px;">Back</a>
+                    <!---
+                    <script>
+                      document.addEventListener("DOMContentLoaded", function() {
+                        const postCommentBtn = document.getElementById("postCommentBtn");
+                        const commentsContainer = document.getElementById("commentsContainer");
+                        const actualCommentsContainer = document.getElementById("actualCommentsContainer");
+                    
+                        postCommentBtn.addEventListener("click", function() {
+                            const commentInput = document.getElementById("commentInput");
+                            const commentText = commentInput.value.trim();
+                    
+                            if (commentText !== "") {
+                                // Create a new comment element
+                                const newComment = document.createElement("div");
+                                newComment.classList.add("comment");
+                                newComment.textContent = commentText;
+                    
+                                // Append the new comment to the comments container
+                                actualCommentsContainer.appendChild(newComment);
+                    
+                                // Show the comments container if it was hidden
+                                commentsContainer.style.display = "block";
+                    
+                                // Clear the comment input field
+                                commentInput.value = "";
+                            } else {
+                                alert("Please enter a comment before posting.");
+                            }
+                        });
+                    });
+                  </script>   
+                  -->
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </body>
+{% endblock content %}
+

@@ -1,0 +1,118 @@
+{% extends "CSRP/base.html" %}
+{% load static %}
+{% block content %}
+  <header style="display: flex; justify-content: space-between; align-items: center; padding: 1px 10%; background-color: rgb(255, 255, 255);">
+    <div class="logo" style="cursor: pointer;">
+      <img src="{% static 'img/NEDlogo.jpg' %}" width="250" height="auto"/>
+    </div>
+    <nav>
+      <div class="d-flex align-items-center" style="font-family: 'Inter Tight', sans-serif; float: left; font-size: 13px; font-weight: bolder;">
+        <ul style="margin-top: revert; margin-bottom: 1rem;">
+          <li style="display: inline-block; list-style: none;"><a href="/home" style="display: inline-block; color: black; text-align: center; padding: 14px 3px; text-decoration: none; font-family: Arial; font-weight: bold; transition: 0.4s ease-in-out;"><i class="fas fa-home"></i> HOME</a></li>
+          <li style="display: inline-block; list-style: none;"><a href="/about" style="display: inline-block; color: black; text-align: center; padding: 14px 15px; text-decoration: none; font-family: Arial; font-weight: bold; transition: 0.4s ease-in-out;"><i class="fas fa-info-circle"></i> ABOUT</a></li>
+          <li style="display: inline-block; list-style: none;"><a href="/contact" style="display: inline-block; color: black; text-align: center; padding: 14px 0px; text-decoration: none; font-family: Arial; font-weight: bold; transition: 0.4s ease-in-out;"><i class="fas fa-envelope mx-1"></i>CONTACT US</a></li>
+        </ul>
+        </nav>
+          <div>
+  </header>
+  <body style="margin: 0; padding: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url(https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/NED_University_White_House.png/1200px-NED_University_White_House.png); height: 76vh; overflow: hidden; background-position: center; background-size: cover;">
+    <div class="container py-5 h-100" style="padding-top: 2rem!important;">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-6"> <!-- Adjusted column width -->
+          <div class="card shadow-2-strong" style="border-radius: 1rem; background-color: rgba(255, 255, 255, 0.1); box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px); border-radius: 10px; top: 20px;">
+            <div class="card-body p-4 text-center">
+              <h3 class="mb-4" style="color: #fff;">Contact Us</h3>
+              <form method="POST" action="{% url 'contactus' %}">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <div id="form_errors">
+                            {% for key, value in form.errors.items %}
+                                <strong>{{ value }}</strong>
+                            {% endfor %}
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+                <div class="form-outline mb-4" style="background-color: transparent; color: white; display: flex;">
+                  <div class="input-container" style="position: relative; flex: 1;">
+                    <span class="fa fa-user" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: white;"></span>
+                    <input type="text" class="form-control" required placeholder="First Name" style="background-color: transparent; color: white; padding-left: 32px">
+                  </div>
+
+                  <div class="input-container" style="position: relative; flex: 1;">
+                    <span class="fa fa-user" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: white;"></span>
+                    <input type="text" class="form-control" required placeholder="Last Name" style="background-color: transparent; color: white; padding-left: 32px">
+                  </div>
+                </div>
+                
+                <div class="form-group" style="background-color: transparent; color: white; display: flex;">
+                  <div class="input-container" style="position: relative; flex: 1;">
+                      <span class="fas fa-envelope mx-1" style="position: absolute; left: 6px; top: 50%; transform: translateY(-50%); color: white;"></span>
+                      <input type="email" class="form-control" required placeholder="Email Address" style="background-color: transparent; color: white; padding-left: 35px;">
+                  </div>
+              </div>              
+                <div class="form-outline mb-4" style="background-color: transparent; color: white; position: relative;">
+                  <div class="form-group">
+                    <span class="fas fa-envelope mx-1" style="position: absolute; left: 6px; top: 16%; transform: translateY(-50%); color: white;"></span>
+                    <textarea name="message" class="form-control transparent-textarea" id="message" rows="5" placeholder="Enter Your Message" required style="background-color: transparent; border: 1px solid #ced4da; color: white; padding-left: 35px"></textarea>
+                  </div>
+                </div>                            
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                  <label class="form-check-label" for="invalidCheck" style="color: #fff;">Agree to terms and conditions</label>
+                  <div class="invalid-feedback">You must agree before submitting.</div>
+                </div>
+                <button onclick="sendMessage()" class="btn btn-primary mt-3" style="background-color: #02632c; border-color: #02632c;">Send</button>
+              </form> <!-- Close the form here -->
+            </div>
+          </div>    
+  <br><br><br>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.form-control{
+  width: 95%;     
+}
+
+.form-control:focus {
+  border-color: #02632c;
+}
+
+/* Style for the textarea when it's focused with !important */
+.form-group textarea:focus {
+    border-color: #02632c !important;
+}
+
+/* Style for the placeholder text */
+.form-control::placeholder {
+    color: white; /* Change this to the desired color */
+}
+
+.transparent-textarea {
+  background-color: transparent;
+  border: 1px solid #adadad;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+}
+
+nav li{
+  display: inline-block;
+}
+    </style>
+  </body>
+{% endblock %}
+
+
+
+

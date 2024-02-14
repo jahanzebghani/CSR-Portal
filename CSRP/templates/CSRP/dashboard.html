@@ -1,0 +1,274 @@
+{% extends "CSRP/base.html" %}
+{% load static %}
+{% block title %} Dashboard {% endblock title %} 
+{% block content %}
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body style="background: var(--grey); overflow-x: hidden;">
+	<section id="sidebar" style="position: fixed; max-width: 260px; width: 100%; background: var(--light); top: 0; left: 0; height: 100%; overflow-y: auto; scrollbar-width: none; transition: all .3s ease; z-index: 200;">
+    <div class="dlogo" style="text-align: center; cursor: pointer; padding-bottom: 3rem; margin: 10px 0 0 10px; display: flex;">
+		<img src="{% static 'img/NEDlogo.jpg' %}" width="230" height="auto"/>
+	</div>
+		<ul class="side-menu" style="margin: 36px 0; padding: 0 20px; transition: all .3s ease;"> 
+      <div class="text-center">
+        <a href="/dashboard" class="btn btn-dark" style="margin-left: -46px; position: relative; top: -20px;">
+          <i class="fas fa-menorah" style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); margin-left: 4px;"></i>
+          <span style="margin-left: 26px;">Dashboard</span>
+        </a>
+
+        <a href="/requistionportal" class="btn btn-success" style="background: #02632c;">
+          <i class="bi bi-file-earmark-plus-fill" style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); margin-left: 4px;"></i>
+          <span style="margin-left: 20px;">ADD REQUISITION</span></a>
+        </div>
+      </div>
+      <!---
+		<li style="list-style: none;">
+        <a href="#" style= "text-decoration: none; display: flex; align-items: center; font-size: 14px; color: var(--dark); padding: 12px 16px 12px 0; transition: all .3s ease; border-radius: 10px; margin: 4px 0; white-space: nowrap;">
+          <i class="fas fa-cog" style="cursor: pointer; position: relative; width: 70px; height: 40px; top: 10px; font-size: 20px; text-align: center;"></i>
+          <span class="nav-item">Settings</span>
+        </a>
+      </li>
+      -->
+      <br>
+      {% if user.is_superuser %}
+      <div class="text-center">
+        <a href="/logsheetdetails" class="btn btn-primary" style="border-color: #0d6efd; margin-left: -12px; top: 20px;">
+            <i class="fas fa-sign-out-alt" style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); margin-left: 4px;"></i>
+            <span style="margin-left: 20px;">VIEW LOGSHEET</span>
+        </a>
+    </div>
+       <!---
+        <div class="text-center">
+          <a href="/comments" class="btn btn-warning" style="border-color: #ffc107; margin-left: -60px; top: 20px; position: relative;">
+              <i class="far fa-envelope" style="color: #fff; position: absolute; left: 5px; top: 50%; transform: translateY(-50%); margin-left: 4px;"></i>
+              <span style="margin-left: 20px; color: #fff;">Messages</span>
+          </a>
+      </div>
+      -->
+      <div class="text-center" style="margin-top: 10px;"> <!-- Adjust margin-top as needed -->
+        <a href="/feedbacksdetails" class="btn btn-success" style="margin-left: -55px; top: 16px; position: relative;">
+            <i class="fas fa-thumbs-up" style="color: #fff; position: absolute; left: 5px; top: 50%; transform: translateY(-50%); margin-left: 4px;"></i>
+            <span style="margin-left: 20px; color: #fff;">Feedbacks</span>
+        </a>
+    </div>
+      {% endif %}
+    </br>
+      <div class="text-center">
+        <a href="{% url 'logout' %}" class="btn btn-danger" style="margin-left: -67px; position: relative; top: 20px;">
+            <i class="fas fa-sign-out-alt" style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); margin-left: 4px;"></i>
+            <span style="margin-left: 20px;">LOGOUT</span></a>
+    </div>
+  </br>
+		</ul>
+	</section>
+	<section id="content" style="position: relative; width: calc(100% - 260px); left: 260px; transition: all .3s ease;">
+    <a class="me-3" href="#" style="position: absolute; top: 20px; right: 20px;">
+        <i class="fas fa-bell"></i>
+        <span id="navbarNotificationCounter" class="badge rounded-pill badge-notification bg-danger" alt="Notifications" style="display: none; color: #fff!important;">0</span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end show" id="navbarNotificationContent" aria-labelledby="navbarDropdownMenuLink" style="width: 250px; position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 43.3333px);" data-popper-placement="bottom-end">
+        <li><a gtm-id="Notifications" class="dropdown-item text-wrap" data-notification-date="#" href="#" target="_blank" rel="nofollow">
+        <p class="small text-uppercase mb-2"></p>
+        <p class="mb-0"></p>
+      </a>
+      </li>
+  </ul>
+    <main style="width: 100%; padding: 24px 20px 20px 20px;">
+        <!-- Rest of your main content -->
+        <h3 class="title" style="font-size: 28px; font-weight: 600; margin-bottom: 10px;">Dashboard</h3>
+        <!-- Your other content goes here -->
+      <div class="main-top">
+        {% if user.is_authenticated %}
+    {% if user.username == "DDWS (E)" or user.username == "DDWS (C)" or user.username == "DWS" %}
+        <h1>Welcome {{ user.get_username }}</h1>
+    {% else %}
+        <h1>Welcome {{ user.get_full_name }}</h1>
+    {% endif %}
+{% endif %}
+			</ul>
+      <br>
+        <h2 style="text-align: center;">Submitted Requistions</h2>
+    </br>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 4px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+	/* Set the width of each table column */
+	th:nth-child(1),
+	td:nth-child(1) {
+  	width: 50px; /* Set the width of the ID column */
+	}
+
+	th:nth-child(2),
+	td:nth-child(2) {
+  	width: 250px; /* Set the width of the Department column */
+	}
+
+	th:nth-child(3),
+	td:nth-child(3) {
+  	width: 250px; /* Set the width of the Department column */
+	}
+  </style>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+<!---        <th>Name</th> -->
+        <th>Subject</th>
+        <th>Department</th>
+        <th>Submitted On</th> 
+        <th>Updated On</th>
+        <th>Assign To</th>
+        <th>Status</th> 
+      </tr>
+    </thead> 
+    <tbody>
+      {% for requistion_form in requistion_forms %}
+      <tr>
+        <td>{{ requistion_form.id }}</td>
+<!--        <td> {{ user.first_name }} {{ user.last_name }}</td> -->
+        <td><a href="{% url 'requistiondetails' %}?requistionsubject_id={{ requistion_form.id }}">{{ requistion_form.requistionsubject }}</a></td>
+        <td>{{ requistion_form.department }}</td>
+        <td>{{ requistion_form.time }} - {{ requistion_form.date }}</td>
+        <td>{{ requistion_form.updatedtime }} - {{ requistion_form.updatedon }}</td>
+        <td>{{ requistion_form.assignto }}</td>
+ <!---  <td><span id="assign_to_display"></span></td>    -->
+        <td>
+          <span>{{ requistion_form.status }}</span>
+          {% if requistion_form.status == "OPEN" %}
+            <br>(Waiting To Attend)</br>
+          {% endif %}
+        </td>
+        <td>
+          <div class="input-group-append" style="margin-left: 20px;">
+            {% if requistion_form.status == 'CLOSED' and not user.is_superuser %}
+            <a href="{% url 'feedbackform' %}" id="feedbackbutton" type="button" class="btn btn-success" style="color: white; font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: bolder; margin-right: 10px; position: relative;">
+              <i class="fas fa-thumbs-up" style="position: absolute; top: 47%; transform: translateY(-50%);"></i>
+              <span style="padding-left: 20px;">feedback</span>
+            {% endif %}
+            <!---          
+              {% if requistion_form.status == 'CLOSED' %}
+              <a href="#" id="commentsbutton" type="button" class="btn btn-primary" style="color: white; font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: bolder; margin-right: 10px; position: relative;">
+                <i class="far fa-comment" style="position: absolute; top: 50%; transform: translateY(-50%);"></i>
+                <span style="padding-left: 20px;">Comments</span>
+            </a>
+              {% endif %}
+              -->
+              <a href="#" id="deletebutton" data-requistionid="{{ requistion_form.id }}" class="btn btn-danger" style="color: white; font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: bolder;">
+                <i class="bi bi-trash3-fill" style="position: absolute; left: 5px; top: 52%; transform: translateY(-50%); margin-left: 4px;"></i>
+                <span style="margin-left: 15px;">Delete</span></a>
+                <script>
+                  document.addEventListener("DOMContentLoaded", function() {
+                      const deleteButtons = document.querySelectorAll("#deletebutton");
+                  
+                      deleteButtons.forEach(button => {
+                          button.addEventListener("click", function(event) {
+                              event.preventDefault();  // Prevent the default link behavior
+                  
+                              const requistionId = this.getAttribute("data-requistionid");
+                              if (confirm("Are you sure you want to delete this requistion?")) {
+                                  fetch(`/delete/${requistionId}/`, {
+                                      method: "POST",
+                                      headers: {
+                                          "X-CSRFToken": getCookie("csrftoken")
+                                      }
+                                  }).then(response => {
+                                      if (response.status === 200) {
+                                          // Redirect or refresh the page as needed
+                                          window.location.reload();
+                                      }
+                                  });
+                              }
+                          });
+                      });
+                  
+                      // Function to get the CSRF token for the fetch request
+                      function getCookie(name) {
+                          let cookieValue = null;
+                          if (document.cookie && document.cookie !== "") {
+                              const cookies = document.cookie.split(";");
+                              for (let i = 0; i < cookies.length; i++) {
+                                  const cookie = cookies[i].trim();
+                                  if (cookie.substring(0, name.length + 1) === name + "=") {
+                                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                      break;
+                                  }
+                              }
+                          }
+                          return cookieValue;
+                      }
+                  });
+                  </script>                
+
+          {% if request.user.is_superuser %}
+          <div class="input-group-append" style="margin-left: 10px;">
+            <a href="/updatesection?requistionsubject_id={{ requistion_form.id }}" id="applybutton" type="button" class="btn btn-warning" style="color: white; font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: bolder; margin-right: 10px;">
+              <i class="bi bi-power" style="position: absolute; left: 5px; top: 52%; transform: translateY(-50%); margin-left: 4px;"></i>
+              <span style="margin-left: 15px;">Update</span></a>
+      </div>   
+          <!-- Display response content here -->
+        </div>
+        </form>  
+          {% else %}
+      <!--    {{ requistion_form.status }} -->
+          {% endif %}
+        </td>
+  <!---      <td><a href="?requistionstatus_id={{ requistion_form.id }}">{{ requistion_form.status }}</a></td> -->
+      </tr>
+      {% endfor %}
+    </tbody>
+				</div>
+			</div>
+		</main>
+	</section>
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+* {
+	font-family: 'Open Sans', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--grey: #F1F0F6;
+	--dark-grey: #8D8D8D;
+	--light: #fff;
+	--dark: #000;
+	--green: #81D43A;
+	--light-green: #E3FFCB;
+	--blue: #1775F1;
+	--light-blue: #D0E4FF;
+	--dark-blue: #0C5FCD;
+	--red: #FC3B56;
+}
+# input-group-append {
+  border: 1px solid #ddd;
+  padding: 20px;
+  font-size: 14px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.status {
+  font-size: 02px; 
+}
+  </style>
+</body>
+{% endblock %}
